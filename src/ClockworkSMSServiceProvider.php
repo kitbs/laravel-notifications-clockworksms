@@ -3,6 +3,7 @@
 namespace NotificationChannels\ClockworkSMS;
 
 use Illuminate\Support\ServiceProvider;
+use NotificationChannels\ClockworkSMS\ClockworkSMSClientInterface;
 
 class ClockworkSMSServiceProvider extends ServiceProvider
 {
@@ -11,24 +12,18 @@ class ClockworkSMSServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Bootstrap code here.
+        $this->app->when(ClockworkSMSChannel::class)
+        ->needs(ClockworkSMSClientInterface::class)
+        ->give(function () {
+            $config = config('services.clockworksms');
 
-        /**
-         * Here's some example code we use for the pusher package.
-
-        $this->app->when(Channel::class)
-            ->needs(Pusher::class)
-            ->give(function () {
-                $pusherConfig = config('broadcasting.connections.pusher');
-
-                return new Pusher(
-                    $pusherConfig['key'],
-                    $pusherConfig['secret'],
-                    $pusherConfig['app_id']
-                );
-            });
-         */
-
+            return new ClockworkSMSClient(
+                array_get($config, 'key'),
+                array_get($config, 'truncate'),
+                array_get($config, 'invalid_char_action')
+                array_get($config, 'from')
+            );
+        });
     }
 
     /**
@@ -36,5 +31,6 @@ class ClockworkSMSServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        //
     }
 }

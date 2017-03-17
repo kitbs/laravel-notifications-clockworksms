@@ -3,15 +3,19 @@
 namespace NotificationChannels\ClockworkSMS;
 
 use NotificationChannels\ClockworkSMS\Exceptions\CouldNotSendNotification;
-use NotificationChannels\ClockworkSMS\Events\MessageWasSent;
-use NotificationChannels\ClockworkSMS\Events\SendingMessage;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\ClockworkSMS\ClockworkSMSClient;
+
+use MJErwin\Clockwork\Exception\ClockworkResponseException;
+use Illuminate\Notifications\Events\NotificationFailed;
 
 class ClockworkSMSChannel
 {
-    public function __construct()
+    protected $client;
+
+    public function __construct(ClockworkSMSClient $client)
     {
-        // Initialisation code here
+        $this->client = $client;
     }
 
     /**
@@ -24,10 +28,30 @@ class ClockworkSMSChannel
      */
     public function send($notifiable, Notification $notification)
     {
-        //$response = [a call to the api of your notification send]
+        if (! $to = $notifiable->routeNotificationFor('clockwork_sms')) {
+            if (! $to = $notifiable->phone_number) {
+                return;
+            }
+        }
 
-//        if ($response->error) { // replace this by the code need to check for errors
-//            throw CouldNotSendNotification::serviceRespondedWithAnError($response);
-//        }
+        $message = $notification->toClockworkSms($notifiable);
+
+        if (is_string($message)) {
+            $message = new ClockworkSMSMessage($message);
+        }
+
+        if (! $message instanceof ClockworkSMSMessage) {
+            throw CouldNotSendNotification::invalidMessageObject($message);
+        }
+
+        if (! $message->isValid()) {
+            throw CouldNotSendNotification::invalidMessageObject($message);
+        }
+
+        try {
+            $response = $this->client->send($message);
+        } catch (ClockworkResponseException $exception) {
+            throw CouldNotSendNotification::serviceRespondedWithAnError($response);
+        }
     }
 }

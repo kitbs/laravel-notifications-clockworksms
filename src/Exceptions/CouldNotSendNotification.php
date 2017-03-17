@@ -4,8 +4,6 @@ namespace NotificationChannels\ClockworkSMS\Exceptions;
 
 use NotificationChannels\ClockworkSms\ClockworkSmsMessage;
 
-use MJErwin\Clockwork\Exception\ClockworkResponseException;
-
 class CouldNotSendNotification extends \Exception
 {
     public static function serviceRespondedWithAnError($response)

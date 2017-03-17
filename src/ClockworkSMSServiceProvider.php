@@ -20,7 +20,7 @@ class ClockworkSMSServiceProvider extends ServiceProvider
             return new ClockworkSMSClient(
                 array_get($config, 'key'),
                 array_get($config, 'truncate'),
-                array_get($config, 'invalid_char_action')
+                array_get($config, 'invalid_char_action'),
                 array_get($config, 'from')
             );
         });

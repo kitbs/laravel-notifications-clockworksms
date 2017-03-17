@@ -31,7 +31,7 @@ class ClockworkSMSClient
 
     public function send(ClockworkSMSMessage $message)
     {
-
+        //
     }
 
     public function setFrom($from)

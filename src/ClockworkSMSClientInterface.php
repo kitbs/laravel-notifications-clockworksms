@@ -21,5 +21,4 @@ interface ClockworkSMSClientInterface
     public function getInvalidCharAction();
 
     public function getBalance();
-
 }

@@ -2,9 +2,12 @@
 
 namespace NotificationChannels\ClockworkSMS;
 
-use Illuminate\Support\Arr;
-
 class ClockworkSMSMessage
 {
-    // Message structure here
+    protected $content;
+
+    public function content($content)
+    {
+        $this->content = $content;
+    }
 }

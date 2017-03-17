@@ -3,7 +3,6 @@
 namespace NotificationChannels\ClockworkSMS;
 
 use Illuminate\Support\ServiceProvider;
-use NotificationChannels\ClockworkSMS\ClockworkSMSClientInterface;
 
 class ClockworkSMSServiceProvider extends ServiceProvider
 {

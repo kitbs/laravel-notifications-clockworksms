@@ -2,12 +2,9 @@
 
 namespace NotificationChannels\ClockworkSMS;
 
-use NotificationChannels\ClockworkSMS\Exceptions\CouldNotSendNotification;
 use Illuminate\Notifications\Notification;
-use NotificationChannels\ClockworkSMS\ClockworkSMSClient;
-
 use MJErwin\Clockwork\Exception\ClockworkResponseException;
-use Illuminate\Notifications\Events\NotificationFailed;
+use NotificationChannels\ClockworkSMS\Exceptions\CouldNotSendNotification;
 
 class ClockworkSMSChannel
 {

@@ -47,6 +47,7 @@ class ClockworkSMSMessage implements ClockworkSMSMessageInterface
     {
         if ($method = array_get($this->magicMethods, $name)) {
             $method = 'get'.$method;
+
             return $this->message->$method();
         }
 
@@ -57,12 +58,13 @@ class ClockworkSMSMessage implements ClockworkSMSMessageInterface
      * Whether a value is set on the message object.
      *
      * @param  string  $name
-     * @return boolean
+     * @return bool
      */
     public function __isset($name)
     {
         if ($method = array_get($this->magicMethods, $name)) {
             $method = 'get'.$method;
+
             return (bool) $this->message->$method();
         }
 
@@ -111,11 +113,11 @@ class ClockworkSMSMessage implements ClockworkSMSMessageInterface
         if ($method = array_get($this->magicMethods, $func)) {
             $method = 'set'.$method;
             $this->message->$method(head($val));
+
             return $this;
         }
 
         trigger_error('Uncaught Error: Call to undefined method '.get_class($this).'::'.$func.'()', E_USER_ERROR);
-
     }
 
     /**
@@ -140,5 +142,4 @@ class ClockworkSMSMessage implements ClockworkSMSMessageInterface
 
         return $this;
     }
-
 }

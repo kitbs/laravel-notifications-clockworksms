@@ -2,10 +2,9 @@
 
 namespace NotificationChannels\ClockworkSMS\Exceptions;
 
+use Exception;
 use NotificationChannels\ClockworkSms\ClockworkSMSMessageInterface;
 use NotificationChannels\ClockworkSms\ClockworkSMSResponseInterface;
-
-use Exception;
 
 class CouldNotSendNotification extends \Exception
 {

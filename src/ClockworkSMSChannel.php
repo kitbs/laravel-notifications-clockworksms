@@ -53,7 +53,6 @@ class ClockworkSMSChannel
             }
 
             return $response;
-
         } catch (ClockworkResponseException $exception) {
             throw CouldNotSendNotification::genericException($exception);
         }

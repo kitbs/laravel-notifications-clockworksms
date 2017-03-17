@@ -2,33 +2,42 @@
 
 namespace NotificationChannels\ClockworkSMS\Exceptions;
 
-use NotificationChannels\ClockworkSms\ClockworkSmsMessage;
+use NotificationChannels\ClockworkSms\ClockworkSMSMessageInterface;
+use NotificationChannels\ClockworkSms\ClockworkSMSResponseInterface;
+
+use Exception;
 
 class CouldNotSendNotification extends \Exception
 {
-    public static function serviceRespondedWithAnError($response)
+    public static function serviceRespondedWithAnError(ClockworkSMSResponseInterface $response)
     {
-        $code = $response->getErrorCode();
-        $description = $response->getErrorDescription();
+        $code = $response->getCode();
+        $error = $response->getMessage();
 
-        return new static("Error {$code}: $description");
+        return new static("Error {$code}: $error");
+    }
+
+    public static function genericException(Exception $exception)
+    {
+        return new static($exception->getMessage(), $exception->getCode(), $exception);
     }
 
     public static function invalidMessageObject($message)
     {
-        if ($message instanceof ClockworkSmsMessage) {
-            if (! $message->getMessage()->getNumber()) {
-                $message = 'Notification was not sent. No number set in the message.';
-            } elseif (! $message->getMessage()->getContent()) {
-                $message = 'Notification was not sent. No content set in the message.';
+        if ($message instanceof ClockworkSMSMessageInterface) {
+            if (! $message->to) {
+                $error = 'Notification was not sent. No number set in the message.';
+            } elseif (! $message->content) {
+                $error = 'Notification was not sent. No content set in the message.';
             } else {
-                $message = 'Notification was not sent. Message is invalid.';
+                $error = 'Notification was not sent. Message is invalid.';
             }
         } else {
             $className = get_class($message) ?: 'Unknown';
-            $message = "Notification was not sent. Message object class `{$className}` is invalid. It must be `".ClockworkSmsMessage::class.'`.';
+
+            $error = "Notification was not sent. Message object class `{$className}` is invalid. It must be `".ClockworkSmsMessage::class.'`.';
         }
 
-        return new static($message);
+        return new static($error);
     }
 }

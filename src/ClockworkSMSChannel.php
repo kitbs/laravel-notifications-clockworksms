@@ -37,7 +37,7 @@ class ClockworkSMSChannel
             $message = new ClockworkSMSMessage($message);
         }
 
-        if (! $message instanceof ClockworkSMSMessage) {
+        if (! $message instanceof ClockworkSMSMessageInterface) {
             throw CouldNotSendNotification::invalidMessageObject($message);
         }
 
@@ -47,8 +47,15 @@ class ClockworkSMSChannel
 
         try {
             $response = $this->client->send($message);
+
+            if ($response->hasErrors()) {
+                throw CouldNotSendNotification::serviceRespondedWithAnError($response);
+            }
+
+            return $response;
+
         } catch (ClockworkResponseException $exception) {
-            throw CouldNotSendNotification::serviceRespondedWithAnError($response);
+            throw CouldNotSendNotification::genericException($exception);
         }
     }
 }

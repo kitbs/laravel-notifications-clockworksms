@@ -21,7 +21,7 @@ class ClockworkSMSClient
         'truncate' => 1,
     ];
 
-    public function __construct($key, $truncate, $invalidCharAction, $from = null)
+    public function __construct($key, $truncate = 'truncate', $invalidCharAction = 'remove', $from = null)
     {
         $this->client = new ClockworkClient($key);
         $this->setTruncate($truncate);
@@ -29,9 +29,11 @@ class ClockworkSMSClient
         $this->setFrom($from);
     }
 
-    public function send(ClockworkSMSMessage $message)
+    public function send(ClockworkSMSMessageInterface $message)
     {
-        //
+        $response = $this->client->sendMessage($message->getMessage());
+
+        return new ClockworkSMSResponse($response);
     }
 
     public function setFrom($from)

@@ -4,7 +4,7 @@ namespace NotificationChannels\ClockworkSMS;
 
 interface ClockworkSMSClientInterface
 {
-    public function __construct($key, $truncate, $invalidCharAction, $from = null);
+    public function __construct($key, $truncate = null, $invalidCharAction = null, $from = null);
 
     public function send(ClockworkSMSMessage $message);
 

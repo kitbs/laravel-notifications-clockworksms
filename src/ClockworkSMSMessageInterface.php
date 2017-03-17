@@ -25,5 +25,4 @@ interface ClockworkSMSMessageInterface
      * @return void
      */
     public function setMessage($message);
-
 }

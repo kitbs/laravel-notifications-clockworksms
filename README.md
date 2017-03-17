@@ -3,7 +3,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/laravel-notification-channels/laravel-notifications-clockworksms.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/laravel-notifications-clockworksms)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/laravel-notification-channels/laravel-notifications-clockworksms/master.svg?style=flat-square)](https://travis-ci.org/laravel-notification-channels/laravel-notifications-clockworksms)
-[![StyleCI](https://styleci.io/repos/85318497/shield)](https://styleci.io/repos/85318497)
+[![StyleCI](https://styleci.io/repos/85321143/shield)](https://styleci.io/repos/85321143)
 [![SensioLabsInsight](https://img.shields.io/sensiolabs/i/:sensio_labs_id.svg?style=flat-square)](https://insight.sensiolabs.com/projects/:sensio_labs_id)
 [![Quality Score](https://img.shields.io/scrutinizer/g/laravel-notification-channels/laravel-notifications-clockworksms.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/laravel-notifications-clockworksms)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/laravel-notification-channels/laravel-notifications-clockworksms/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/laravel-notifications-clockworksms/?branch=master)
